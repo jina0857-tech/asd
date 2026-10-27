@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>창원경원중학교 우리 반 교실</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Noto Sans KR) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- School & Class Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                        <i class="fa-solid fa-school text-xl text-amber-300"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg sm:text-xl leading-tight flex items-center gap-2">
+                            창원경원중학교 <span class="bg-indigo-500 text-amber-200 text-xs px-2.5 py-0.5 rounded-full font-semibold border border-indigo-400">3학년 2반</span>
+                        </h1>
+                        <p class="text-xs text-indigo-200">배움과 꿈이 커가는 행복한 우리 교실</p>
+                    </div>
+                </div>
+                <!-- Real-time Clock Header -->
+                <div class="hidden sm:flex items-center space-x-2 bg-indigo-700/60 px-3 py-1.5 rounded-xl border border-indigo-500/30">
+                    <i class="fa-regular fa-clock text-indigo-300"></i>
+                    <span id="live-clock" class="text-sm font-medium tracking-wide">2026. 10. 27. (화) 16:44</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Top Welcome Banner & Weather Summary Bar -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Class Notice Board Banner -->
+            <div class="lg:col-span-2 bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between">
+                <div class="absolute -right-6 -bottom-6 opacity-15 pointer-events-none">
+                    <i class="fa-solid fa-graduation-cap text-9xl"></i>
+                </div>
+                <div>
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="bg-amber-400 text-indigo-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">TODAY'S MESSAGE</span>
+                        <span id="d-day-badge" class="bg-white/20 text-xs font-medium px-3 py-1 rounded-full backdrop-blur-md">D-Day 계산 중...</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold mb-2">"서로를 존중하며 함께 성장하는 우리 3-2"</h2>
+                    <p class="text-indigo-100 text-sm max-w-xl">
+                        오늘도 활기차게! 이동 수업 시 소지품 챙기기, 우측통행 준수 및 청소 시간 담당 구역 확인하기 잊지 마세요.
+                    </p>
+                </div>
+                
+                <!-- Quick Mini Stats -->
+                <div class="mt-6 pt-4 border-t border-white/20 grid grid-cols-3 gap-2 text-center text-xs">
+                    <div class="bg-white/10 rounded-lg p-2 backdrop-blur-xs">
+                        <div class="text-indigo-200">이번 주 주번</div>
+                        <div class="font-bold text-sm mt-0.5 text-white">김경원 · 이창원</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-2 backdrop-blur-xs">
+                        <div class="text-indigo-200">학급 반장</div>
+                        <div class="font-bold text-sm mt-0.5 text-white">박성진</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-2 backdrop-blur-xs">
+                        <div class="text-indigo-200">담임 선생님</div>
+                        <div class="font-bold text-sm mt-0.5 text-white">홍길동 선생님</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weather Widget Card -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="bg-sky-100 text-sky-600 p-2 rounded-lg">
+                            <i class="fa-solid fa-cloud-sun text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm">창원시 성산구 날씨</h3>
+                            <p class="text-xs text-slate-400">경원중학교 인근 실시간 날씨</p>
+                        </div>
+                    </div>
+                    <button onclick="fetchWeather()" title="새로고침" class="text-slate-400 hover:text-indigo-600 transition-colors p-1">
+                        <i class="fa-solid fa-rotate-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div id="weather-content" class="py-4 flex items-center justify-between">
+                    <!-- Loading state -->
+                    <div class="w-full text-center py-4 text-slate-400 text-sm">
+                        <i class="fa-solid fa-circle-notch fa-spin text-indigo-500 text-xl mb-2"></i>
+                        <p>날씨 정보 로딩 중...</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-2.5 rounded-xl flex justify-around text-center text-xs text-slate-600 border border-slate-100">
+                    <div>
+                        <span class="block text-slate-400">습도</span>
+                        <span id="weather-humidity" class="font-semibold text-slate-700">-- %</span>
+                    </div>
+                    <div class="border-r border-slate-200"></div>
+                    <div>
+                        <span class="block text-slate-400">풍속</span>
+                        <span id="weather-wind" class="font-semibold text-slate-700">-- m/s</span>
+                    </div>
+                    <div class="border-r border-slate-200"></div>
+                    <div>
+                        <span class="block text-slate-400">체감온도</span>
+                        <span id="weather-feels" class="font-semibold text-slate-700">--°C</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Middle Grid: Meal Info & Calendar -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- 1. School Meals Card (급식 API) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 flex flex-col overflow-hidden">
+                <!-- Card Header -->
+                <div class="p-5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white/20 p-2.5 rounded-xl backdrop-blur-sm">
+                            <i class="fa-solid fa-utensils text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-bold text-lg">오늘의 급식표</h2>
+                            <p class="text-xs text-emerald-100">나이스(NEIS) 교육정보 개방 포털 연동</p>
+                        </div>
+                    </div>
+                    <!-- Date Selector Input -->
+                    <input type="date" id="meal-date-picker" class="bg-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-lg border border-white/30 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer">
+                </div>
+
+                <!-- Meal Content Container -->
+                <div class="p-5 flex-grow flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="meal-date-title" class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                                <i class="fa-regular fa-calendar-check text-emerald-600"></i>
+                                <span id="meal-date-text">날짜 로딩 중...</span>
+                            </span>
+                            <span class="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full border border-emerald-200 font-medium">중식</span>
+                        </div>
+
+                        <!-- Menu Display Box -->
+                        <div id="meal-box" class="min-h-[160px] bg-slate-50 border border-slate-200 rounded-xl p-4 custom-scrollbar overflow-y-auto">
+                            <!-- Dynamic Content -->
+                            <div class="flex flex-col items-center justify-center h-36 text-slate-400 text-sm">
+                                <i class="fa-solid fa-spinner fa-spin text-emerald-500 text-2xl mb-2"></i>
+                                급식 정보를 불러오는 중입니다...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calorie & Allergy Note -->
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-2">
+                        <div class="flex items-center space-x-1.5">
+                            <i class="fa-solid fa-fire-flame-curved text-orange-500"></i>
+                            <span>칼로리: <strong id="meal-calorie" class="text-slate-700">정보 없음</strong></span>
+                        </div>
+                        <div class="text-slate-400 text-[11px]">
+                            ※ 숫자는 알레르기 유발물질 정보 표시
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Academic Calendar Card (학사일정 API) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 flex flex-col overflow-hidden">
+                <!-- Card Header -->
+                <div class="p-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white/20 p-2.5 rounded-xl backdrop-blur-sm">
+                            <i class="fa-regular fa-calendar-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-bold text-lg">경원중 학사일정</h2>
+                            <p class="text-xs text-blue-100">나이스 학사일정 공공 API 연동</p>
+                        </div>
+                    </div>
+                    <!-- Month Selector -->
+                    <div class="flex items-center bg-white/20 rounded-lg p-0.5 border border-white/30 text-xs font-semibold">
+                        <button onclick="changeMonth(-1)" class="px-2 py-1 hover:bg-white/20 rounded transition"><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="calendar-month-text" class="px-2">2026.10</span>
+                        <button onclick="changeMonth(1)" class="px-2 py-1 hover:bg-white/20 rounded transition"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Calendar Content -->
+                <div class="p-5 flex-grow flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs font-semibold text-slate-500">이번 달 주요 주요 일정</span>
+                        <span class="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded font-medium" id="schedule-count-tag">0건</span>
+                    </div>
+
+                    <!-- Schedule List Box -->
+                    <div id="schedule-box" class="flex-grow min-h-[160px] max-h-[220px] bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2 custom-scrollbar overflow-y-auto">
+                        <!-- Dynamic Schedule List -->
+                        <div class="flex flex-col items-center justify-center h-36 text-slate-400 text-sm">
+                            <i class="fa-solid fa-spinner fa-spin text-blue-500 text-2xl mb-2"></i>
+                            학사일정을 불러오는 중입니다...
+                        </div>
+                    </div>
+
+                    <!-- Important Exam Alert -->
+                    <div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center space-x-3 text-amber-900 text-xs">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-500 text-base flex-shrink-0"></i>
+                        <div>
+                            <span class="font-bold">2학기 기말고사 안내:</span>
+                            <span class="text-amber-800"> 시험 기간 동안 실내 정숙을 유지해주시기 바랍니다.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Bottom Grid: Class Board & TimeTable -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Class TimeTable (시간표) -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80">
+                <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="bg-purple-100 text-purple-600 p-2 rounded-lg">
+                            <i class="fa-solid fa-table-cells text-base"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base">우리 반 시간표</h3>
+                    </div>
+                    <span class="text-xs bg-purple-50 text-purple-600 px-2.5 py-1 rounded-full font-medium">3학년 2반</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 border-b border-slate-200">
+                                <th class="py-2 px-1">교시</th>
+                                <th class="py-2 px-1">월</th>
+                                <th class="py-2 px-1">화</th>
+                                <th class="py-2 px-1">수</th>
+                                <th class="py-2 px-1">목</th>
+                                <th class="py-2 px-1">금</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700">
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">1</td>
+                                <td>국어</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">수학</td>
+                                <td>영어</td>
+                                <td>과학</td>
+                                <td>체육</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">2</td>
+                                <td>수학</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">사회</td>
+                                <td>국어</td>
+                                <td>역사</td>
+                                <td>음악</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">3</td>
+                                <td>영어</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">과학</td>
+                                <td>수학</td>
+                                <td>국어</td>
+                                <td>미술</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">4</td>
+                                <td>사회</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">체육</td>
+                                <td>기술가정</td>
+                                <td>영어</td>
+                                <td>미술</td>
+                            </tr>
+                            <tr class="bg-amber-50/50 text-amber-800 font-bold">
+                                <td class="py-1.5" colspan="6">점 심 시 간 (12:30 ~ 13:30)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">5</td>
+                                <td>과학</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">국어</td>
+                                <td>음악</td>
+                                <td>수학</td>
+                                <td>진로</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">6</td>
+                                <td>역사</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">영어</td>
+                                <td>도덕</td>
+                                <td>사회</td>
+                                <td>동아리</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 bg-slate-50 font-bold text-slate-400">7</td>
+                                <td>도덕</td>
+                                <td class="bg-indigo-50 font-semibold text-indigo-700">자율</td>
+                                <td class="text-slate-300">-</td>
+                                <td>기술가정</td>
+                                <td class="text-slate-300">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Interactive Notice & Board (우리반 한마디 게시판) -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <div class="bg-amber-100 text-amber-600 p-2 rounded-lg">
+                                <i class="fa-solid fa-comments text-base"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-800 text-base">우리 반 소통 게시판</h3>
+                        </div>
+                        <span class="text-xs text-slate-400">자유롭게 의견과 칭찬을 나눠요!</span>
+                    </div>
+
+                    <!-- Input Form -->
+                    <form id="post-form" onsubmit="handlePostSubmit(event)" class="mb-4 flex gap-2">
+                        <input type="text" id="post-author" placeholder="이름" required class="w-24 px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" id="post-text" placeholder="친구들에게 남길 응원의 메시지를 작성하세요..." required class="flex-grow px-3 py-2 text-xs border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5 flex-shrink-0">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>등록</span>
+                        </button>
+                    </form>
+
+                    <!-- Posts List -->
+                    <div id="posts-container" class="space-y-2.5 max-h-[220px] overflow-y-auto custom-scrollbar pr-1">
+                        <!-- Dynamic Posts -->
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center text-xs text-slate-400 border-t border-slate-100 pt-3">
+                    ※ 고운 말을 사용하여 서로를 배려합시다. (건전한 학급 분위기 만들기)
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-medium text-slate-300">경상남도 창원시 성산구 동산로 100 (창원경원중학교)</p>
+            <p class="text-slate-500">본 페이지는 경원중학교 3학년 2반 전용 커뮤니티 페이지입니다. | NEIS 공공 데이터 및 Weather API 활용</p>
+            <p class="text-slate-600 pt-1">© 2026 Gyeongwon Middle School 3-2. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 경원중학교 나이스 API 정보
+        // 교육청 코드: S10 (경상남도교육청)
+        // 학교 표준 코드: 9240049 (창원경원중학교)
+        const ATPT_OFCDC_SC_CODE = "S10";
+        const SD_SCHUL_CODE = "9240049";
+
+        // State Management
+        let currentCalendarDate = new Date(2026, 9, 1); // 2026년 10월 기본 세팅
+        let posts = [
+            { author: "박성진(반장)", text: "다음 주 수요일 체육시간에 축구공 챙겨오기!", time: "10:30 AM" },
+            { author: "이지은", text: "오늘 수행평가 다들 수고 많았어 👍", time: "01:15 PM" },
+            { author: "홍길동 선생님", text: "환절기 감기 조심하고 교실 환기 잘하기 바랍니다.", time: "03:40 PM" }
+        ];
+
+        // Init on DOM Content Loaded
+        window.onload = function() {
+            // Clock
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // D-Day setup (예: 기말고사 or 방학 D-Day)
+            setupDDay();
+
+            // Set default date for meal picker to today
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+            const datePicker = document.getElementById('meal-date-picker');
+            datePicker.value = dateStr;
+            datePicker.addEventListener('change', (e) => fetchMeals(e.target.value));
+
+            // Initial API Calls
+            fetchMeals(dateStr);
+            fetchSchedules(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + 1);
+            fetchWeather();
+
+            // Render Messages
+            renderPosts();
+        };
+
+        // 1. Live Clock Function
+        function updateClock() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            const day = dayNames[now.getDay()];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('live-clock').innerText = 
+                `${year}. ${month}. ${date}. (${day}) ${hours}:${minutes}:${seconds}`;
+        }
+
+        // 2. D-Day Calculator
+        function setupDDay() {
+            const targetDate = new Date('2026-11-20'); // 예: 2학기 기말고사
+            const today = new Date();
+            const diffTime = targetDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const badge = document.getElementById('d-day-badge');
+            if (diffDays > 0) {
+                badge.innerText = `📝 2학기 기말고사 D-${diffDays}`;
+            } else if (diffDays === 0) {
+                badge.innerText = `🔥 2학기 기말고사 D-DAY`;
+            } else {
+                badge.innerText = `🎓 방학 카운트다운 진행 중`;
+            }
+        }
+
+        // 3. Fetch Meal Data (NEIS OpenAPI)
+        async function fetchMeals(dateString) {
+            const mealBox = document.getElementById('meal-box');
+            const dateText = document.getElementById('meal-date-text');
+            const calorieText = document.getElementById('meal-calorie');
+
+            // Date format formatting (YYYYMMDD)
+            const formattedDate = dateString.replace(/-/g, '');
+            const [y, m, d] = dateString.split('-');
+            dateText.innerText = `${y}년 ${parseInt(m)}월 ${parseInt(d)}일`;
+
+            mealBox.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-36 text-slate-400 text-sm">
+                    <i class="fa-solid fa-spinner fa-spin text-emerald-500 text-2xl mb-2"></i>
+                    급식 정보를 가져오는 중입니다...
+                </div>`;
+
+            try {
+                const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=sample&Type=json&pIndex=1&pSize=5&ATPT_OFCDC_SC_CODE=${ATPT_OFCDC_SC_CODE}&SD_SCHUL_CODE=${SD_SCHUL_CODE}&MLSV_YMD=${formattedDate}`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.mealServiceDietInfo && data.mealServiceDietInfo[1].row.length > 0) {
+                    const mealData = data.mealServiceDietInfo[1].row[0];
+                    // Clean HTML tags and formatting
+                    let dishContent = mealData.DDISH_NM.replace(/<br\/>/g, '\n');
+                    let calorie = mealData.CAL_INFO || '정보 없음';
+
+                    // Parse dishes into list items
+                    const dishes = dishContent.split('\n').filter(d => d.trim() !== '');
+
+                    mealBox.innerHTML = `
+                        <ul class="space-y-2">
+                            ${dishes.map(dish => `
+                                <li class="flex items-center space-x-2 text-sm text-slate-700 bg-white p-2 rounded-lg border border-slate-100 shadow-xs">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                                    <span class="font-medium">${dish}</span>
+                                </li>
+                            `).join('')}
+                        </ul>`;
+                    calorieText.innerText = calorie;
+                } else {
+                    mealBox.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-36 text-slate-400 text-sm">
+                            <i class="fa-solid fa-utensils text-slate-300 text-3xl mb-2"></i>
+                            해당 날짜는 급식 정보가 없거나 휴업일입니다.
+                        </div>`;
+                    calorieText.innerText = '정보 없음';
+                }
+            } catch (err) {
+                console.error("Meal API Error:", err);
+                // Fallback Mock data for smooth UI display
+                renderMockMeal(dateString);
+            }
+        }
+
+        // Mock Meal Fallback
+        function renderMockMeal(dateString) {
+            const mealBox = document.getElementById('meal-box');
+            const calorieText = document.getElementById('meal-calorie');
+
+            const mockDishes = [
+                "친환경 발아현미밥",
+                "쇠고기 미역국 5.6.",
+                "돈육 고추장 불고기 5.6.10.13.",
+                "오징어 어묵무침 1.5.6.13.",
+                "배추김치 9.13.",
+                "우리쌀 샤인머스캣 푸딩"
+            ];
+
+            mealBox.innerHTML = `
+                <div class="mb-2 text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">※ 샘플 데이터 (네트워크 오류 시 표출)</div>
+                <ul class="space-y-1.5">
+                    ${mockDishes.map(dish => `
+                        <li class="flex items-center space-x-2 text-sm text-slate-700 bg-white p-2 rounded-lg border border-slate-100 shadow-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                            <span class="font-medium">${dish}</span>
+                        </li>
+                    `).join('')}
+                </ul>`;
+            calorieText.innerText = '742.5 Kcal';
+        }
+
+        // 4. Fetch Academic Calendar (NEIS OpenAPI)
+        async function fetchSchedules(year, month) {
+            const scheduleBox = document.getElementById('schedule-box');
+            const countTag = document.getElementById('schedule-count-tag');
+            document.getElementById('calendar-month-text').innerText = `${year}.${String(month).padStart(2, '0')}`;
+
+            scheduleBox.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-36 text-slate-400 text-sm">
+                    <i class="fa-solid fa-spinner fa-spin text-blue-500 text-2xl mb-2"></i>
+                    학사일정을 가져오는 중입니다...
+                </div>`;
+
+            const ym = `${year}${String(month).padStart(2, '0')}`;
+
+            try {
+                const url = `https://open.neis.go.kr/hub/SchoolSchedule?KEY=sample&Type=json&pIndex=1&pSize=30&ATPT_OFCDC_SC_CODE=${ATPT_OFCDC_SC_CODE}&SD_SCHUL_CODE=${SD_SCHUL_CODE}&AA_YMD=${ym}`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data.SchoolSchedule && data.SchoolSchedule[1].row.length > 0) {
+                    const rows = data.SchoolSchedule[1].row;
+                    countTag.innerText = `${rows.length}건`;
+
+                    scheduleBox.innerHTML = rows.map(item => {
+                        const dateStr = item.AA_YMD;
+                        const dayNum = dateStr.substring(6, 8);
+                        const eventName = item.SCHUL_CRSE_SC_NM || item.EVENT_NM;
+
+                        return `
+                            <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-100 shadow-2xs">
+                                <div class="bg-indigo-50 text-indigo-700 font-bold px-2.5 py-1 rounded-lg text-xs flex-shrink-0 border border-indigo-100">
+                                    ${month}/${dayNum}
+                                </div>
+                                <div class="text-xs font-semibold text-slate-700 flex-grow">
+                                    ${eventName}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    countTag.innerText = `0건`;
+                    scheduleBox.innerHTML = `
+                        <div class="flex flex-col items-center justify-center h-36 text-slate-400 text-xs">
+                            <i class="fa-regular fa-calendar-xmark text-slate-300 text-3xl mb-2"></i>
+                            해당 달에 등록된 학사일정이 없습니다.
+                        </div>`;
+                }
+            } catch (err) {
+                console.error("Schedule API Error:", err);
+                renderMockSchedules(month);
+            }
+        }
+
+        function renderMockSchedules(month) {
+            const scheduleBox = document.getElementById('schedule-box');
+            const countTag = document.getElementById('schedule-count-tag');
+
+            const mockData = [
+                { date: `${month}/05`, name: "개교기념일" },
+                { date: `${month}/12`, name: "2학기 1차 지필평가" },
+                { date: `${month}/13`, name: "2학기 1차 지필평가" },
+                { date: `${month}/20`, name: "진로 직업 체험 학습" },
+                { date: `${month}/28`, name: "학생회 정기 회의" }
+            ];
+
+            countTag.innerText = `${mockData.length}건`;
+            scheduleBox.innerHTML = mockData.map(item => `
+                <div class="flex items-center space-x-3 bg-white p-2.5 rounded-xl border border-slate-100 shadow-2xs">
+                    <div class="bg-indigo-50 text-indigo-700 font-bold px-2.5 py-1 rounded-lg text-xs flex-shrink-0 border border-indigo-100">
+                        ${item.date}
+                    </div>
+                    <div class="text-xs font-semibold text-slate-700 flex-grow">
+                        ${item.name}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function changeMonth(delta) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth() + 1;
+            fetchSchedules(year, month);
+        }
+
+        // 5. Fetch Weather Data (Open-Meteo API for Changwon City)
+        async function fetchWeather() {
+            const weatherContent = document.getElementById('weather-content');
+            // 창원 성산구/의창구 좌표 (약 위도 35.228, 경도 128.681)
+            const lat = 35.228;
+            const lon = 128.681;
+
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FTokyo`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data && data.current) {
+                    const temp = Math.round(data.current.temperature_2m);
+                    const humidity = data.current.relative_humidity_2m;
+                    const feelsLike = Math.round(data.current.apparent_temperature);
+                    const wind = data.current.wind_speed_10m;
+                    const weatherCode = data.current.weather_code;
+
+                    const weatherInfo = getWeatherDescription(weatherCode);
+
+                    weatherContent.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <i class="${weatherInfo.icon} text-4xl ${weatherInfo.color}"></i>
+                            <div>
+                                <div class="text-3xl font-extrabold text-slate-800 tracking-tight">${temp}°C</div>
+                                <div class="text-xs font-semibold text-slate-500">${weatherInfo.text}</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block bg-sky-50 text-sky-700 font-medium text-xs px-2.5 py-1 rounded-md border border-sky-100">
+                                미세먼지 보통 🌿
+                            </span>
+                        </div>
+                    `;
+
+                    document.getElementById('weather-humidity').innerText = `${humidity}%`;
+                    document.getElementById('weather-wind').innerText = `${wind} m/s`;
+                    document.getElementById('weather-feels').innerText = `${feelsLike}°C`;
+                }
+            } catch (err) {
+                console.error("Weather API Error:", err);
+                weatherContent.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-sun text-4xl text-amber-500"></i>
+                        <div>
+                            <div class="text-3xl font-extrabold text-slate-800">19°C</div>
+                            <div class="text-xs font-semibold text-slate-500">맑음 (기본값)</div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('weather-humidity').innerText = `55%`;
+                document.getElementById('weather-wind').innerText = `2.1 m/s`;
+                document.getElementById('weather-feels').innerText = `19°C`;
+            }
+        }
+
+        // Helper for Weather Icon & Text
+        function getWeatherDescription(code) {
+            if (code === 0) return { text: "맑음", icon: "fa-solid fa-sun", color: "text-amber-500" };
+            if (code >= 1 && code <= 3) return { text: "구름 조금 / 흐림", icon: "fa-solid fa-cloud-sun", color: "text-sky-500" };
+            if (code >= 45 && code <= 48) return { text: "안개", icon: "fa-solid fa-smog", color: "text-slate-400" };
+            if (code >= 51 && code <= 67) return { text: "비 약간", icon: "fa-solid fa-cloud-rain", color: "text-blue-500" };
+            if (code >= 71 && code <= 77) return { text: "눈", icon: "fa-regular fa-snowflake", color: "text-blue-300" };
+            if (code >= 80 && code <= 82) return { text: "소나기", icon: "fa-solid fa-cloud-showers-heavy", color: "text-indigo-500" };
+            if (code >= 95) return { text: "뇌우", icon: "fa-solid fa-cloud-bolt", color: "text-purple-600" };
+            return { text: "맑음", icon: "fa-solid fa-sun", color: "text-amber-500" };
+        }
+
+        // 6. Interactive Message Board logic
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = posts.map((post, idx) => `
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex items-start justify-between">
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100">${post.author}</span>
+                            <span class="text-[10px] text-slate-400">${post.time}</span>
+                        </div>
+                        <p class="text-xs text-slate-700 font-medium pl-0.5">${post.text}</p>
+                    </div>
+                    <button onclick="deletePost(${idx})" class="text-slate-300 hover:text-rose-500 transition-colors p-1 text-xs">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function handlePostSubmit(e) {
+            e.preventDefault();
+            const authorInput = document.getElementById('post-author');
+            const textInput = document.getElementById('post-text');
+
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 || 12;
+            const timeStr = `${String(formattedHours).padStart(2, '0')}:${minutes} ${ampm}`;
+
+            posts.unshift({
+                author: authorInput.value.trim(),
+                text: textInput.value.trim(),
+                time: timeStr
+            });
+
+            textInput.value = '';
+            renderPosts();
+        }
+
+        function deletePost(index) {
+            posts.splice(index, 1);
+            renderPosts();
+        }
+    </script>
+</body>
+</html>
